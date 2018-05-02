@@ -1,0 +1,596 @@
+Devslopes : Backend Development : Intro to Node, Mongo & REST API 
+
+
+## Video 1 : Understanding Web Request 
+What is http : hyper text transfer protocol ? 
+
+=> TWO ACTORS : 
+	-> Clients :
+	-computers
+	-mobile 
+	-browser
+
+	-> Server : 
+	-stores the content 
+
+
+=> GET REQUEST FROM THE CLIENT TO THE SERVER 
+	-> We you type http://devsopes.com 
+	you send an http request - a get request to the server. 
+
+
+=> HTTP RESPONSE FROM THE SERVER 
+	-> the server send you an html response : 
+	-header 
+	-body in JSON/XML format 
+	- JSON can have video 1 + url video 1 
+
+=> POST REQUEST  FROM THE CLIENT TO THE SERVER 
+	-> Post something on the server : completed = true 
+	then server response => success 
+
+=> PUT REQUEST  FROM THE CLIENT TO THE SERVER
+	-> Modify the data : first name. 
+	-> Update the data in the server. 
+
+=> DELETE REQUEST  FROM THE CLIENT TO THE SERVER
+
+
+=> IN THE CONSOLE : 
+	Last login: Mon Apr 23 17:51:17 on ttys001
+	-bash: /Users/magalidrumare/.profile: No such file or directory
+	MacBook-Pro-de-DRUMARE:~ magalidrumare$ curl http://google.com
+	<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<TITLE>301 Moved</TITLE></HEAD><BODY>
+	<H1>301 Moved</H1>
+	The document has moved
+	<A HREF="http://www.google.com/">here</A>.
+	</BODY></HTML>
+	MacBook-Pro-de-DRUMARE:~ magalidrumare$ 
+
+
+## video 2 : Node.js 
+https://nodejs.org/en/
+run javascript everywhere not only the browser. 
+	-> on mac on mobile on server. 
+	-> Control C to exit. 
+	-> vim temp.js : text editor. 
+	-> I to be in insert mode.  
+
+
+## video 3 : JSON 
+https://swapi.co
+	-> key and value.  
+	-> value can be an integer, float, a string, a boolean, an array, an array of object {}.
+https://pokeapi.co
+{
+    "id": 1,
+    "name": "bulbasaur",
+    "base_experience": 64,
+    "height": 7,
+    "is_default": true,
+    "order": 1,
+    "weight": 69,
+    "abilities": [
+        {
+            "is_hidden": true,
+            "slot": 3,
+            "ability": {
+                "name": "chlorophyll",
+                "url": "http://pokeapi.co/api/v2/ability/34/"
+            }
+        }
+    ]
+}
+
+-> The client can parse the JSON file. "'"
+-> Chrome extension JSON reader install can read JSON file. 
+run this url in Chrome in Navigator : https://pokeapi.co/api/v2/pokemon/1/
+-> Postman to check the code. 
+
+
+## video 4 : Basics of Node 
+
+First step : install npm script : 
+-> NPM https://www.npmjs.com/
+->  npm install readline-sync
+
+Second step : write the script : 
+-> vim test.js 
+-> click on I to become the insert the code in the editor 
+var rs = require('readline-sync');
+var a = 30;
+var b = 20;
+console.log(a+b);
+
+Read the answer of what is your name and put in var name console 
+var name=rs.question("What is your name");
+console.log ("Your name is " + name);
+
+Save the script : 
+-> Clic on Escape 
+-> clic on Shift : 
+-> x  and Enter. 
+
+Run the script : 
+-> in the console node test.js 
+MacBook-Pro-de-DRUMARE:~ magalidrumare$ node test.js
+50
+What is your nameMagali
+Your name is Magali
+
+
+## video 5 : Node modules 
+-> in print.js 
+var print=function(thingToPrint){
+console.log(thingToPrint);
+}; 
+module.exports = print; 
+
+-> in app.js 
+var print=require(./print);
+print("did this work");
+
+
+
+## video 6 : Building your first App
+-> create a folder first-API on the desktop 
+-> In the console : 
+	- cd desktop 
+	- cd first-API 
+	- touch server.js 
+	- init npm
+	- npm install --save express -> download node_modules in the folder first-API
+-> In the file server.js : 
+var express = require ('express'); 
+var app = express (); 
+
+app.get('/', function(req,res){
+        
+    res.send('My First API!'); 
+        });
+
+app.get('/tatayoyo', function(req, res){
+    res.send('Tata Yoyo ça fait ding ding comme une samba'); 
+});
+
+app.listen(3000,function(){
+    console.log("First API running on port 3000"); 
+    
+});
+-> in the Chrome Browser localhost:3000
+My First API! 
+
+
+## video 7 : Postman, GET & Post Request 
+
+-> DATA 
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({extended: false})); 
+
+var ingredients = [
+    
+    {
+        "id": "234kAk",
+        "text": "Eggs"
+    },
+    
+     
+    {
+        "id": "234kbw",
+        "text": "Milk"
+    },
+    
+       
+    {
+        "id": "234kuu",
+        "text": "Bacon"
+    },
+    
+     {
+        "id": "234kuu",
+        "text": "Bacon"
+    },
+    
+    {
+        "id": "234kst",
+        "text": "Frogs Legs"
+    }]; 
+
+-> POST REQUEST 
+app.post('/', function(request,response){
+    var ingredient = request.body; 
+if (!ingredient || ingredient.text === ""){
+    response.status(500).send({error:"Your ingredient must have a text"}); 
+  }else{
+      ingredients.push(ingredient); 
+      response.status(200).send(ingredients); 
+      
+  }
+
+ -> In the console 
+ cd desktop 
+ cd second-API 
+ node server.js 
+
+ -> Open Postman 
+GET http://localhost:3000 
+POST http://localhost:3000
+Body> Raw > Json 
+{
+	"id": "567kyr",
+	"text": "Cherries"
+}
+
+
+## video 9 : URL Parameters & delete Requests 
+-> npm install -g nodemon 
+
+
+## video 11 : Install MongoDB on macOS 
+
+-> https://brew.sh/index_fr
+-> https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/#create-the-data-directory
+
+
+## video 12 : Working with Mongo Shell 
+
+http://shanghaiseagull.com/index.php/2016/02/13/mongod-address-already-in-use-for-socket/
+
+magalidrumare$ mongo
+use learning-mongo
+db.products.insert({"productName":"Red Car","price": 12.60,"salePrice":5.0})
+=> WriteResult({ "nInserted" : 1 })
+show collections
+=> products
+ db.products.find()
+ => { "_id" : ObjectId("5ae34145fd488c36ad4af8a3"), "productName" : "Red Car", "price" : 12.6, "salePrice" : 5 }
+
+> db.products.find().pretty()
+{
+    "_id" : ObjectId("5ae34145fd488c36ad4af8a3"),
+    "productName" : "Red Car",
+    "price" : 12.6,
+    "salePrice" : 5
+}
+
+-> CREATE 
+> db.products.insert({"productName":"Blue Car","price": 10.44})
+WriteResult({ "nInserted" : 1 })
+
+-> DISPLAY
+> db.products.find()
+{ "_id" : ObjectId("5ae34145fd488c36ad4af8a3"), "productName" : "Red Car", "price" : 12.6, "salePrice" : 5 }
+{ "_id" : ObjectId("5ae3490afd488c36ad4af8a4"), "productName" : "Blue Car", "price" : 10.44 }
+
+
+
+## video 13 : Searching for documents 
+
+-> SEARCH 
+> db.products.find({"_id": ObjectId("5ae34145fd488c36ad4af8a3")})
+{ "_id" : ObjectId("5ae34145fd488c36ad4af8a3"), "productName" : "Red Car", "price" : 12.6, "salePrice" : 5 }
+> db.products.find({"productName" : "Blue Car"})
+{ "_id" : ObjectId(5ae3490afd488c36ad4af8a4"), "productName" : "Blue Car", "price" : 10.44 }
+
+-> UPDATE 
+> db.products.update({"productName":"Red Car"},{$set:{"price":3.59}})
+> db.products.find({"productName" : "Red Car"})
+{ "_id" : ObjectId("5ae34145fd488c36ad4af8a3"), "productName" : "Red Car", "price" : 3.59, "salePrice" : 5 }
+
+
+## video 14 : Deletions & Documentation 
+
+-> REMOVE 
+> db.products.remove({"productName":"Red Car"})
+WriteResult({ "nRemoved" : 1 })
+
+-> ALL THE COMMAND 
+https://docs.mongodb.com/manual/tutorial/getting-started/
+https://docs.mongodb.com/getting-started/shell/query/
+
+
+
+## video 15 : Project Creation 
+
+-> CREATE THE FOLDER 
+    => Create swag-shop-api 
+    => server.js inside swag-shop-api 
+    => cd desktop > cd swag-shop-api 
+
+-> INSTALL THE LIBRARY
+    => npm init
+    => npm install --save body-parser
+    => npm install --save express mongoose 
+
+-> IMPORT THE LIBRARY
+    => in server.js  import express and body-parser 
+        var express = require('express');
+        var app = express(); 
+        var bodyParser = require('body-parser'); 
+        var mongoose = require('mongoose'); 
+        var db = mongoose.connect('mongodb://localhost/shop');
+
+    => initialisation of the bodyParser
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: false}));
+
+
+    => listen on the server and on the port 
+    app.listen(3004, function(){
+    console.log("Swag Shop API running on port 3004...");
+    });
+
+
+-> RUN server.js on the server 
+    => cd desktop > cd cd swag-shop-api > node server.js
+
+ -> RUN the MongoDB shell version    
+    => on the server.js : var db = mongoose.connect('mongodb://localhost/shop');
+
+    => in a console window : cd desktop > cd cd swag-shop-api > mongod (killall mongod)
+    => Base de données en local : MongoDB starting : pid=1629 port=27017 dbpath=/data/db 64-bit host=MacBook-Pro-de-DRUMARE.local
+
+    => in a new console window : cd desktop > cd swag-shop-api > mongo 
+    => voir les bases de données : show dbs (nothong for the moment)
+
+
+# video 16 : Creating the models 
+
+-> CREATE MODELS 
+-> Create structure in the database) 
+-> Create a folder : model 
+-> Inside the folder model : create product.js and wishlist.js 
+
+
+-> MODEL PRODUCT.JS 
+var mongoose = require('mongoose'); 
+var Schema = mongoose.Schema; 
+
+-> Javascript constructor syntax 
+var product = new Schema({
+    title : String,
+    price : Number, 
+    likes : {type: Number, default: 0}  
+}); 
+
+-> export the model that can be used by another model 
+module.exports = mongoose.model('Product', product);
+
+
+-> MODEL WISHLIST.JS 
+var mongoose = require('mongoose'); 
+var Schema = mongoose.Schema; 
+var ObjectId = mongoose.Schema.Types.ObjectId; 
+
+var wishList = new Schema({
+    -> default name of the wishlist 
+    title: {type: String, default: "Cool Wish List"},
+    -> connexion mongo object alrealdy in the database with the same structure of Product. 
+    products:[{type: ObjectId, ref:'Product'}]
+});
+
+module.exports = mongoose.model('WishList', wishList);
+
+
+-> IMPORTATION OF THE MODELS IN SERVER.JS 
+-> product of module.exports = mongoose.model('Product', product)
+var Product = require('./model/product'); 
+-> wishList of module.exports = mongoose.model('WishList', wishList)
+var WishList = require('./model/wishList');
+
+
+-> Check if everything is OK 
+=> cd desktop > cd cd swag-shop-api > node server.js
+
+
+
+# video 17 : Posting Products 
+
+-> POST PRODUCT (to initialize the database)
+app.post('/product', function(request, response){  
+    -> new Product() of var Product = require('./model/product');
+    var product = new Product(); 
+    -> "title" and "price" will come from the client and postman 
+    product.title = request.body.title; 
+    product.price = request.body.price; 
+
+    -> save the product post on mongo db 
+    product.save(function(err, savedProduct){     
+        if (err){
+            response.status(500).send({error: "Could not save product"}); 
+        } else {
+    -> the server will return the prodctuct saved on the database with the new id 
+            response.status(200).send(savedProduct); 
+        } 
+    });
+              
+});
+
+-> CHECK THE RESULT 
+    => save the file server.js 
+    => cd desktop > cd cd swag-shop-api > node server.js
+    => in postman "NewTab" POST: http://localhost:3004/product 
+    => Body > raw > JSON 
+    { "title" : "Tata Yoyo Book", "price" : 23} + SEND 
+    => sucessfull in POSTMAN creation of the "_id" : 5ae622d9ac23dc0871aa67df
+    => cd desktop > cd cd swag-shop-api > mongo 
+    => show dbs -> new one named shop ( created by this line of code var db = mongoose.connect('mongodb://localhost/shop');)
+    => use shop -> switched to db shop
+    => show collections -> products 
+    => db.products.find({}) -> { "_id" : ObjectId("5ae622d9ac23dc0871aa67df"), "likes" : 0, "title" : "Tata Yoyo Book", "price" : 23, "__v" : 0 }
+
+The Process is the following : 
+Client-> API-> mongoDB-> API-> Client. 
+
+
+# video 18 :  Fetching Products 
+app.get('/product', function (request, response){
+    
+    Product.find({}, function(err, products){
+        
+        if(err){
+            response.status(500).send({error:"Could not fetch products"});
+        }else{
+            response.send(products); 
+        }
+       
+    });
+       
+}); 
+
+-> CHECK THE PRODUCT 
+=> cd desktop > cd cd swag-shop-api > node server.js
+=> in postman "NewTab" GET: http://localhost:3004/product 
+=> use shop -> switched to db shop
+=> db.products.find({})
+
+
+# video 19: Populating Data 
+
+-> POST WISHLIST (as POST PRODUCT)  
+app.post('/wishlist', function(request, response){
+    
+    -> New WishList() of var WishList = require('./model/wishList')
+    var wishlist = new WishList();
+    wishlist.title = request.body.title;
+    
+    wishlist.save(function (err, newWishList){
+        
+        if(err){
+            response.status(500).send({error:"Could not create a wishList"});
+              } else {
+                 
+                response.send(newWishList);
+              } 
+    });
+    
+});
+
+-> CHECK THE RESULT OF POST WISHLIST 
+=> cd desktop > cd cd swag-shop-api > node server.js
+=> in postman "NewTab" POST: http://localhost:3004/product 
+=> Body > raw > JSON 
+    { "title": " Magali Wishlist",} + SEND 
+
+
+
+-> GET WISHLIST 
+app.get('/wishlist', function (request, response){
+    WishList.find({}, function (err, wishLists){
+        
+    if(err){
+    response.status(500).send({error:"Could not fetch wishLists"});
+     }else{
+            response.send(wishLists); 
+             } 
+    });
+    
+});
+
+-> CHECK THE RESULT OF POST WISHLIST 
+=> cd desktop > cd cd swag-shop-api > node server.js
+=> in postman "NewTab" GET: http://localhost:3004/wishlist
+=> Creationb of wishlist id 
+
+
+
+
+-> UPDATE WISHLIST ***
+
+app.put('/wishlist/product/add', function (request, response){
+
+-> Find the product in the database by the _id of the product 
+    Product.findOne({_id: request.body.productId}, function (err, product){
+        if (err) {
+            response.status(500).send({error: "Could not add item to wishlist"});
+        } else{
+         
+            
+ -> Find the WishList with the ishListId and then add the product using the product._id
+            WishList.update({_id: request.body.wishListId},{$addToSet:{products: product._id}},
+            function(err, wishList){
+                if(err)
+                {response.status(500).send({error:"Could not add item to wishlist"}); 
+                
+                } else {
+  ->The server return the wishList updated.                           
+                     response.send(wishList);       
+        }
+                                                                                                                   
+                                                           
+            });
+                   
+      }
+        
+      
+   })
+});
+
+
+-> CHECK THE RESULT OF UPDATE WISHLIST 
+=> cd desktop > cd cd swag-shop-api > node server.js
+=> in postman "NewTab" PUT: http://localhost:3004/wishlist/product/add
+=> Body, raw, JSON : {
+    
+    "productId": "5ae622d9ac23dc0871aa67df",
+    "wishListId": "5ae8bf00b5e8fa0b3bdf8e75"
+}
+-> result : {
+    "n": 1,
+    "nModified": 0,
+    "ok": 1
+}
+=> in postman GET: http://localhost:3004/wishlist. + SEND => update the wishList with the id of the product id. 
+
+
+-> POPULATE THE DATA 
+app.get('/wishlist', function (request, response){
+
+-> path I want to populate is 'products' 
+coming from product.js : 
+//var wishList = new Schema({
+    title: {type: String, default: "Cool Wish List"},
+    products:[{type: ObjectId, ref:'Product'}]
+});//
+belong from the Product model. 
+
+    WishList.find({}).populate({path:'products', model:'Product'}).exec(function(err,wishLists){
+        
+        if(err){
+            response.status(500).send({error:"Could not fetch wishLists"});
+        }else{
+            response.send(wishLists); 
+             } 
+    })
+    
+ });
+
+
+ => In postman : GET  http://localhost:3004/wishlist
+ -> Result products is populated 
+ [
+    {
+        "title": " Magali Wishlist",
+        "products": [
+            {
+                "likes": 0,
+                "_id": "5ae622d9ac23dc0871aa67df",
+                "title": "Tata Yoyo Book",
+                "price": 23,
+                "__v": 0
+            }
+        ],
+        "_id": "5ae8bf00b5e8fa0b3bdf8e75",
+        "__v": 0
+    }
+    
+
+
+
+
+
+
+
+
+
